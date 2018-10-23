@@ -17,22 +17,26 @@ public class UpdateTodos : IHttpHandler {
         List<string> requestErrors = new List<string> {};
         string jsonData = "";
         
+        //read in POST'ed body
         using (var reader = new System.IO.StreamReader(context.Request.InputStream)) {
             jsonData = reader.ReadToEnd();
         }
-
+        
+        //Setup data table to json todos
         System.Data.DataTable dtItems = new System.Data.DataTable();
         dtItems.Columns.Add("ID", Type.GetType("System.Int32"));
         dtItems.Columns.Add("Name", Type.GetType("System.String"));
         dtItems.Columns.Add("Completed", Type.GetType("System.Boolean"));
-
+        
+        //Parse our json array
         Newtonsoft.Json.Linq.JArray aJson = Newtonsoft.Json.Linq.JArray.Parse(jsonData);
-
+        
+        //Walk the todo objects
         foreach (Newtonsoft.Json.Linq.JObject item in aJson) {
             int index = System.Convert.ToInt32(item["index"].ToString());
             string name = item["value"].ToString();
             bool done = System.Convert.ToBoolean(item["done"].ToString());
-
+            //Create row
             System.Data.DataRow dRow = dtItems.NewRow();
             dRow["ID"] = index;
             dRow["Name"] = name;
@@ -40,8 +44,11 @@ public class UpdateTodos : IHttpHandler {
             dtItems.Rows.Add(dRow);
         }
         dtItems.AcceptChanges();
-
+        
+        //Send our data table to update method
         System.Data.DataTable dtReturnItems = saveToDoItems(dtItems);
+        
+        //Serialize data table as json
         jsonData = JsonConvert.SerializeObject(dtReturnItems, Formatting.Indented);
 
         context.Response.Write(jsonData);
@@ -54,8 +61,6 @@ public class UpdateTodos : IHttpHandler {
     /// <returns>JSON Array</returns>
     private static System.Data.DataTable saveToDoItems(System.Data.DataTable dtJsonItems) {
         
-        string sqlConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings["BigVoltage"].ToString();
-
         System.Data.DataTable dtItems = new System.Data.DataTable();
         dtItems.Columns.Add("index", Type.GetType("System.Int32"));
         dtItems.Columns.Add("value", Type.GetType("System.String"));
@@ -67,7 +72,8 @@ public class UpdateTodos : IHttpHandler {
             //Define command
             System.Data.SqlClient.SqlCommand _sqlCommand = new System.Data.SqlClient.SqlCommand("[dbo].[SaveToDoListItems]", _sqlConn);
             _sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
-                
+            
+            //Send our entire data table as a table based parameter
             System.Data.SqlClient.SqlParameter tvpParam = _sqlCommand.Parameters.AddWithValue("@TVPTodoItems", dtJsonItems);
             tvpParam.SqlDbType = System.Data.SqlDbType.Structured;
                 
