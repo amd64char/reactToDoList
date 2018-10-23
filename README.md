@@ -8,4 +8,4 @@ ReactJS component that handles all of your ToDos
 + C# code in the form of generic handlers (.ashx files) that React fetchs data from
 + SQL script included to view the creation of the Get, Update/Merge stored procedure and table based parameter
 
-<a href="https://rawgit.com/amd64char/reactToDoList/master/Index.htm">TODO app can be viewed here!</a>
+<a href="http://bigvoltage.com/reactToDo/">TODO app can be viewed here!</a>
