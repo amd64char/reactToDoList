@@ -15,8 +15,11 @@ public class GetTodos : IHttpHandler {
         context.Response.Cache.SetAllowResponseInBrowserHistory(true);
 
         List<string> requestErrors = new List<string> {};
-
+            
+        //Obtain data table of todos
         System.Data.DataTable dtItems = getToDoItems();
+        
+        //Serialize our data table as json
         string jsonItems = JsonConvert.SerializeObject(dtItems, Formatting.Indented);
 
         context.Response.Write(jsonItems);
@@ -27,7 +30,6 @@ public class GetTodos : IHttpHandler {
     /// </summary>
     /// <returns>JSON Array</returns>
     private static System.Data.DataTable getToDoItems() {
-        string sqlConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings["BigVoltage"].ToString();
         
         System.Data.DataTable dtItems = new System.Data.DataTable();
         dtItems.Columns.Add("index", Type.GetType("System.Int32"));
