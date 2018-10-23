@@ -1,0 +1,74 @@
+﻿<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>My ToDo List App</title>
+    <!--meta tags-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
+    <link rel="shortcut icon" href="https://reactjs.org/favicon.ico" />
+    <link rel="icon" href="https://reactjs.org/favicon.ico" />
+    <!--React-->
+	<script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+	<script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+	<script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+    <!--Bootstrap-->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"  rel="stylesheet" type="text/css" />
+    <style>
+        ul {
+          list-style: none;
+        }
+
+        ul>li:hover {
+          background-color: #F5F5F5;
+        }
+
+        .done {
+          color: red;
+          text-decoration: line-through;
+        }
+
+        .undone {
+          color: green;
+        }
+
+        .icon {
+          margin: 6px 10px 6px 0;
+          border: 1px solid;
+        }
+
+        .filters {
+            display: inline;
+            margin-left: 10px;
+        }
+
+        .filters .filter {
+            margin-left: 2px;
+            border: 1px solid #ccc;
+            padding: 8px;
+            border-radius: 4px;
+        }
+
+        .active-filter { 
+            background-color: #F5F5F5; 
+
+        }
+
+        .filter:hover {
+          background-color: #F5F5F5;
+          cursor: pointer;
+        }
+
+    </style>
+</head>
+<body>
+     <div class="container">
+         <div id="todoListApp"></div>
+        <hr/>
+     </div>
+     <!--JS-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="todoApp.js" type="text/babel"></script>
+</body>
+</html>
